@@ -1,6 +1,11 @@
 package com.example.vadim.owntimetable;
 
+import android.util.Log;
+
 import com.example.vadim.owntimetable.Object.TimeTable_day;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,10 +14,28 @@ import java.util.List;
 /**
  * Created by vov96 on 12.09.2016.
  */
+
+class HtmlParser {
+    Document doc;
+
+    public HtmlParser(Document doc) {
+        this.doc = doc;
+    }
+
+    public String getTimeTable() {
+        Document tempDoc = Jsoup.parse(doc.body().getElementsByClass("col-md-6").toString());
+
+        Log.v("<h1>",tempDoc.body().getElementsByTag("h4").text()); // All Day
+        Log.v("tableRow", tempDoc.body().getElementsByTag("table").text()); // All Lessons with date
+
+        return tempDoc.body().getElementsByTag("table").text();
+        // examples
+        // 08:00-09:20 128 Гладка О.М. Системне програмне забезпечення (Лаб) 09:40-11:00 11:15-12:35
+    }
+}
+
 public class CreateListLessons {
     List<TimeTable_day> timeTableDays = new ArrayList<>();
-
-
     String lessons;
 
     public CreateListLessons(String lessons) {

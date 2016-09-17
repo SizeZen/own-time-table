@@ -19,4 +19,5 @@ public class TimeTable_day {
     public String getLesson_name() {
         return lesson_name;
     }
+
 }

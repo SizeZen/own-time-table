@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.vadim.owntimetable.Object.TimeTable_day;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,26 +17,28 @@ import java.util.ArrayList;
  */
 public class OwnTimeAdapter extends RecyclerView.Adapter<OwnTimeAdapter.DataHolder> {
 
-    private List<String> cardtext = new ArrayList<>();
+    private List<TimeTable_day> cardText = new ArrayList<>();
 
     public static class DataHolder extends RecyclerView.ViewHolder {
         CardView cardview;
-        TextView text;
+        TextView lessonTime;
+        TextView lessonName;
+
         DataHolder(View itemView) {
             super(itemView);
             cardview = (CardView)itemView.findViewById(R.id.cv);
-            text = (TextView)itemView.findViewById(R.id.cv_textview);
-
+            lessonTime = (TextView)itemView.findViewById(R.id.cv_lessonTime);
+            lessonName = (TextView)itemView.findViewById(R.id.cv_lessonName);
         }
     }
 
-    public OwnTimeAdapter(List<String> cardtext){
-        this.cardtext = cardtext;
+    public OwnTimeAdapter(List<TimeTable_day> cardText){
+        this.cardText = cardText;
     }
 
     @Override
     public int getItemCount() {
-        return cardtext.size();
+        return cardText.size();
     }
 
     @Override
@@ -46,7 +50,8 @@ public class OwnTimeAdapter extends RecyclerView.Adapter<OwnTimeAdapter.DataHold
 
     @Override
     public void onBindViewHolder(DataHolder personViewHolder, int i) {
-        personViewHolder.text.setText(cardtext.get(i));
+        personViewHolder.lessonTime.setText(cardText.get(i).getLesson_time());
+        personViewHolder.lessonName.setText(cardText.get(i).getLesson_name());
 
     }
 
