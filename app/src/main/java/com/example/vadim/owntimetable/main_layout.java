@@ -13,6 +13,7 @@ import com.example.vadim.owntimetable.Object.TimeTable_day;
 
 import org.jsoup.Jsoup;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -33,7 +34,35 @@ public class main_layout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
-//        mainTextView = (TextView) findViewById(R.id.main_text);
+        ////
+        HttpHtmlAsyncGetter ownapi = new HttpHtmlAsyncGetter();
+        String result = null;
+        try {
+            result = ownapi.execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        HtmlParser localParser = new HtmlParser(Jsoup.parse(result));
+
+        listLessons = new CreateListLessons(localParser.getTimeTable());
+
+
+
+
+
+        ///mainTextView = (TextView) findViewById(R.id.mainTextView);
+
+        ArrayList<String> myDataset = getDataSet();
+
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        mRecyclerView.setHasFixedSize(true);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        RecyclerAdapter mAdapter = new RecyclerAdapter(listLessons.mainCreateList());
+        mRecyclerView.setAdapter(mAdapter);
 
 /*
         RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
@@ -45,6 +74,16 @@ public class main_layout extends AppCompatActivity {
         rv.setAdapter(adapter);
 */
     }
+    private ArrayList<String> getDataSet() {
+
+        ArrayList<String> mDataSet = new ArrayList();
+
+        for (int i = 0; i < 100; i++) {
+            mDataSet.add(i, "item" + i);
+        }
+        mDataSet.add(mDataSet.size(), "пункт" + mDataSet.size() + 1);
+        return mDataSet;
+    }
 
     public void onclick_TimeButton(View v) throws ExecutionException, InterruptedException {
         HttpHtmlAsyncGetter ownapi = new HttpHtmlAsyncGetter();
@@ -53,6 +92,7 @@ public class main_layout extends AppCompatActivity {
 
         listLessons = new CreateListLessons(localParser.getTimeTable());
 
+        mainTextView.setText(listLessons.toString());
 
 /*
         List<TimeTable_day> tempList =  listLessons.mainCreateList();   // print
@@ -73,14 +113,13 @@ public class main_layout extends AppCompatActivity {
 
 */
 
-
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+       /* RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
 
         OwnTimeAdapter adapter = new OwnTimeAdapter(listLessons.mainCreateList());
         rv.setAdapter(adapter);
-
+*/
     }
 }
