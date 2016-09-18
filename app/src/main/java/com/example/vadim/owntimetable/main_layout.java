@@ -47,9 +47,6 @@ public class main_layout extends AppCompatActivity {
         listLessons = new CreateListLessons(localParser.getTimeTable());
 
 
-
-
-
         ///mainTextView = (TextView) findViewById(R.id.mainTextView);
 
         ArrayList<String> myDataset = getDataSet();
@@ -92,7 +89,7 @@ public class main_layout extends AppCompatActivity {
 
         listLessons = new CreateListLessons(localParser.getTimeTable());
 
-        mainTextView.setText(listLessons.toString());
+//        mainTextView.setText(listLessons.toString());
 
 /*
         List<TimeTable_day> tempList =  listLessons.mainCreateList();   // print
