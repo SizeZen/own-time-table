@@ -7,15 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.vadim.owntimetable.Object.TimeTable_day;
+import com.example.vadim.owntimetable.models.TimeTableDayModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private List<TimeTable_day> mDataset;
+    private List<TimeTableDayModel> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
@@ -28,7 +27,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    public RecyclerAdapter(List<TimeTable_day> dataset) {
+    public RecyclerAdapter(List<TimeTableDayModel> dataset) {
         mDataset = dataset;
     }
 
@@ -36,7 +35,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card2, parent, false);
+                .inflate(R.layout.card, parent, false);
+
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
