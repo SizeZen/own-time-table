@@ -24,16 +24,15 @@
 
             <TextView
                 android:id="@+id/tv_recycler_item"
-                android:text="tytytyt1"
+                android:text="@string/lesson_time"
                 android:gravity="center"
-
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 />
 
             <TextView
                 android:id="@+id/tv_recycler_item2"
-                android:text="Tetete2"
+                android:text="@string/lesson_name"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,8 +40,6 @@
 
         </LinearLayout>
 
-
     </android.support.v7.widget.CardView>
-
 
 </LinearLayout>

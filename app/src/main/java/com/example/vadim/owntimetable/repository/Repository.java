@@ -1,6 +1,7 @@
 package com.example.vadim.owntimetable.repository;
 
 import com.example.vadim.owntimetable.HttpHtmlAsyncGetter;
+import com.example.vadim.owntimetable.models.TimePeriod;
 import com.example.vadim.owntimetable.models.TimeTableDayModel;
 import com.example.vadim.owntimetable.parser.HtmlParser;
 
@@ -23,7 +24,7 @@ public class Repository {
     }
 
     private void Update() {
-        HttpHtmlAsyncGetter ownapi = new HttpHtmlAsyncGetter();
+        HttpHtmlAsyncGetter ownapi = new HttpHtmlAsyncGetter(new TimePeriod("13.09.2016", "30.09.2016"));
         try {
             String result = ownapi.execute().get();
             this.Objects = htmlParser.timeTableParser(result);

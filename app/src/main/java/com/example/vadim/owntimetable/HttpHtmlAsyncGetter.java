@@ -3,6 +3,8 @@ package com.example.vadim.owntimetable;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.vadim.owntimetable.models.TimePeriod;
+
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedInputStream;
@@ -13,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -20,13 +23,18 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by root on 9/3/16.
  */
 public class HttpHtmlAsyncGetter extends AsyncTask<Void, Void, String> {
-
-    private String params = "faculty=0&teacher=&n=700&group=%CA%CD%B2%D2-31%B3%ED%F2&sdate=&edate=30.09.2016";
+    private String params = "faculty=0&teacher=&n=700&group=%CA%CD%B2%D2-31%B3%ED%F2&sdate=";
     private String url = "http://109.87.215.169/cgi-bin/timetable.cgi?n=700";
+
+    public HttpHtmlAsyncGetter(TimePeriod timePeriod){
+        params += timePeriod.getBeginning_of_period();
+        params += "&edate="+ timePeriod.getEnd_of_period();
+    }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
     }
 
     @Override
@@ -34,8 +42,10 @@ public class HttpHtmlAsyncGetter extends AsyncTask<Void, Void, String> {
         super.onPostExecute(aVoid);
     }
 
+
     @Override
-    protected String doInBackground(Void... voids) {
+    protected String doInBackground(Void... v) {
+
         InputStream in = null;
         String responeBody;
         try {
