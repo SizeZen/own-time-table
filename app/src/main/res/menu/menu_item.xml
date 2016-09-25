@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/new_game"
+        android:title="@string/change_date"
+        />
+    <item android:id="@+id/gefasim"
+        android:title="@string/gefasim" />
+    <item android:id="@+id/vlmcr"
+        android:title="@string/vlmcr" />
+</menu>

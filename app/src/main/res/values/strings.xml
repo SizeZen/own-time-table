@@ -2,4 +2,13 @@
     <string name="app_name">owntimetable</string>
     <string name="lesson_time">00:00–99:99</string>
     <string name="lesson_name">000 Last name Lesson</string>
+
+    <string name="gefasim">"@gefasim"</string>
+    <string name="vlmcr">"@vlmcr"</string>
+    <string name="change_date">Change date</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="but_done">Done</string>
+    <string name="title_tab_start_date">Start Date</string>
+    <string name="ttile_tab_end_date">End Date</string>
 </resources>
