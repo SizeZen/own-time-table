@@ -30,7 +30,5 @@ public class Repository {
         return null;
     }
 
-    public List<TimeTableDayModel> getList() {
-        return listTimeTableDay;
-    }
+
 }
