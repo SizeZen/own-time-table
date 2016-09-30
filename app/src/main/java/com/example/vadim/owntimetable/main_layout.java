@@ -49,9 +49,7 @@ public class main_layout extends AppCompatActivity implements DateRangePickerFra
         startPeriod = c.get(Calendar.DAY_OF_MONTH) +"."+ (c.get(Calendar.MONTH) +1) +"."+ c.get(Calendar.YEAR);
         endPeriod = c.get(Calendar.DAY_OF_MONTH) +"."+ (c.get(Calendar.MONTH) +2) +"."+ c.get(Calendar.YEAR);
 
-
-
-        Log.v("new", "innovation");
+        repository.getListTimeTableDay(new TimePeriod(startPeriod, endPeriod));
 
         createRecyclerView(new TimePeriod(startPeriod, endPeriod));
     }
@@ -63,7 +61,7 @@ public class main_layout extends AppCompatActivity implements DateRangePickerFra
 
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new RecyclerAdapter(repository.getListTimeTableDay(period), R.layout.card);
+            mAdapter = new RecyclerAdapter(repository.getList(), R.layout.card);
             mRecyclerView.setAdapter(mAdapter);
 
         } else {
@@ -73,7 +71,7 @@ public class main_layout extends AppCompatActivity implements DateRangePickerFra
 
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new RecyclerAdapter(repository.getListTimeTableDay(period), R.layout.card_to_liner_layout);
+            mAdapter = new RecyclerAdapter(repository.getList(), R.layout.card_to_liner_layout);
 
             mRecyclerView.setAdapter(mAdapter);
 
