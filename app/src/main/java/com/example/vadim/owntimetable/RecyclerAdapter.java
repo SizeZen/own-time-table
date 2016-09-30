@@ -15,6 +15,8 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private List<TimeTableDayModel> mDataset;
+    int idLayout;
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
@@ -27,15 +29,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    public RecyclerAdapter(List<TimeTableDayModel> dataset) {
+    public RecyclerAdapter(List<TimeTableDayModel> dataset, int idLayout) {
         mDataset = dataset;
+        this.idLayout = idLayout;
     }
 
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card, parent, false);
+                .inflate(idLayout, parent, false);
 
 
         ViewHolder vh = new ViewHolder(v);

@@ -3,6 +3,7 @@ package com.example.vadim.owntimetable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,29 +28,57 @@ public class main_layout extends AppCompatActivity implements DateRangePickerFra
     Repository repository = new Repository();
     Calendar c = Calendar.getInstance();
 
+    boolean isGridLayoutManager = false;
+
     RecyclerView mRecyclerView;
-    GridLayoutManager mLayoutManager;
+
+
     RecyclerAdapter mAdapter;
 
+    String startPeriod;
+    String endPeriod;
+
+    CardView cardView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        mLayoutManager = new GridLayoutManager(this, 2);
 
-        String startPeriod = c.get(Calendar.DAY_OF_MONTH) +"."+ c.get(Calendar.MONTH) +"."+ c.get(Calendar.YEAR);
-        String endPeriod = c.get(Calendar.DAY_OF_MONTH) +"."+ (c.get(Calendar.MONTH) +1) +"."+ c.get(Calendar.YEAR);
+        startPeriod = c.get(Calendar.DAY_OF_MONTH) +"."+ (c.get(Calendar.MONTH) +1) +"."+ c.get(Calendar.YEAR);
+        endPeriod = c.get(Calendar.DAY_OF_MONTH) +"."+ (c.get(Calendar.MONTH) +2) +"."+ c.get(Calendar.YEAR);
+
+
+
+        Log.v("new", "innovation");
 
         createRecyclerView(new TimePeriod(startPeriod, endPeriod));
     }
 
     private void createRecyclerView(TimePeriod period) {
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new RecyclerAdapter(repository.getListTimeTableDay(period));
-        mRecyclerView.setAdapter(mAdapter);
+        if (isGridLayoutManager){
+            GridLayoutManager mLayoutManager;
+            mLayoutManager = new GridLayoutManager(this, 2);
+
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mAdapter = new RecyclerAdapter(repository.getListTimeTableDay(period), R.layout.card);
+            mRecyclerView.setAdapter(mAdapter);
+
+        } else {
+            LinearLayoutManager mLayoutManager;
+            mLayoutManager = new LinearLayoutManager(this);
+
+
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mAdapter = new RecyclerAdapter(repository.getListTimeTableDay(period), R.layout.card_to_liner_layout);
+
+            mRecyclerView.setAdapter(mAdapter);
+
+        }
+
     }
 
 
@@ -68,6 +97,11 @@ public class main_layout extends AppCompatActivity implements DateRangePickerFra
             case  R.id.vlmcr:
                 Toast.makeText(getApplicationContext(), "Vadim", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.isGridLayoutManager:
+                isGridLayoutManager = !isGridLayoutManager;
+                createRecyclerView(new TimePeriod(startPeriod, endPeriod));
+
+                break;
             case  R.id.new_game:
                 DateRangePickerFragment dateRangePickerFragment= DateRangePickerFragment.newInstance(main_layout.this, false);
                 dateRangePickerFragment.show(getSupportFragmentManager(),"datePicker");
@@ -84,5 +118,7 @@ public class main_layout extends AppCompatActivity implements DateRangePickerFra
                 endDay+"."+(endMonth+1)+"."+endYear
         ));
     }
+
+
 
 }
